@@ -43,7 +43,7 @@ body {
     box-sizing: border-box;
 }
 
-/* VENDOR PREFIXES FOR SHADOWS AND FILTERS */
+/* VENDOR PREFIXY PRO STÍNY A FILTRY */
 .panel {
     background-color: #2980b9;
     color: white;
@@ -66,7 +66,7 @@ body {
     line-height: 1.4;
 }
 
-/* ROZVRŽENÍ PANELŮ: LEVÝ (MAPA) A PRAVÝ (DETAIL) */
+/* ROZVRŽENÍ HLAVNÍHO OBSAHU: LEVÝ (MAPA) A PRAVÝ (DETAIL) PANEL */
 .main-content {
     position: relative;
     width: 100%;
@@ -84,6 +84,9 @@ body {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
     align-items: flex-start;
     gap: 20px;
     padding: 10px 20px;
@@ -117,7 +120,7 @@ body {
     width: 100%;
 }
 
-/* SVG A VEKTOROVÉ PRVKY */
+/* SVG GOBJEKTY A ANIMAČNÍ EFEKTY */
 svg { 
     width: 100%; 
     height: auto; 
@@ -146,10 +149,10 @@ svg {
 
 .map-point:hover .outer-ring { 
     fill: #1e8449 !important;
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
     transform-origin: center;
 }
 
@@ -191,7 +194,7 @@ svg {
     background: #a93226;
 }
 
-/* RESPONSIVITA */
+/* RESPONSIVITA PRO MOBILY A TABLETY */
 @media (max-width: 1024px) {
     .main-content {
         -webkit-box-orient: vertical;
