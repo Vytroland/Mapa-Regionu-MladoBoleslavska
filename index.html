@@ -14,61 +14,65 @@
     </header>
 
     <div class="main-content">
-        <!-- LEVÝ PANEL: MAPA (Vektorová SVG grafika s ID a optimalizovanými cestami) -->
+        <!-- LEVÝ PANEL: INLINE VEKTOROVÁ SVG MAPA -->
         <div class="left-panel white-box map-container">
             <svg id="mapa-boleslav-svg" viewBox="0 0 1000 1100" xmlns="http://www.w3.org/2000/svg">
-                <!-- Vektorový podklad regionu a vodstva s ID -->
+                <!-- Vektorové cesty podkladu regionu a řeky Jizery -->
                 <g id="region-background">
-                    <path id="path-region-boundary" class="map-region" d="M 100,100 L 900,100 L 900,1000 L 100,1000 Z" fill="#e8ecef" stroke="#bdc3c7" stroke-width="2"/>
-                    <path id="path-jizera-river" class="river-path" d="M 550,50 Q 520,300 480,550 T 700,1050" fill="none" stroke="#3498db" stroke-width="12" stroke-linecap="round"/>
+                    <!-- Hranice regionu -->
+                    <path id="path-region-boundary" class="map-region" d="M 150,100 L 850,80 L 920,500 L 800,1000 L 200,950 L 80,450 Z" fill="#e8ecef" stroke="#bdc3c7" stroke-width="4" stroke-dasharray="8,8"/>
+                    <!-- Tok řeky Jizery -->
+                    <path id="path-jizera-river" class="river-path" d="M 580,50 Q 540,250 510,480 T 310,800 L 280,1050" fill="none" stroke="#3498db" stroke-width="14" stroke-linecap="round"/>
                 </g>
 
-                <!-- Interaktivní body (Značky) -->
+                <!-- Interaktivní body s ID a datovými atributy -->
                 <g class="map-point" id="point-mnichovo" data-id="mnichovo">
-                    <circle class="outer-ring" cx="560" cy="150" r="25"/>
-                    <circle class="inner-dot" cx="560" cy="150" r="8" fill="white"/>
+                    <circle class="outer-ring" cx="560" cy="150" r="22"/>
+                    <circle class="inner-dot" cx="560" cy="150" r="7" fill="white"/>
                     <text x="560" y="115" class="map-label">Mnichovo Hradiště</text>
                 </g>
 
                 <g class="map-point" id="point-bela" data-id="bela">
-                    <circle class="outer-ring" cx="300" cy="300" r="25"/>
-                    <circle class="inner-dot" cx="300" cy="300" r="8" fill="white"/>
+                    <circle class="outer-ring" cx="300" cy="300" r="22"/>
+                    <circle class="inner-dot" cx="300" cy="300" r="7" fill="white"/>
                     <text x="300" y="265" class="map-label">Benátky n. Jizerou</text>
                 </g>
 
                 <g class="map-point" id="point-boleslav" data-id="boleslav">
-                    <circle class="outer-ring" cx="530" cy="480" r="25"/>
-                    <circle class="inner-dot" cx="530" cy="480" r="8" fill="white"/>
+                    <circle class="outer-ring" cx="530" cy="480" r="22"/>
+                    <circle class="inner-dot" cx="530" cy="480" r="7" fill="white"/>
                     <text x="530" y="445" class="map-label">Mladá Boleslav</text>
                 </g>
 
                 <g class="map-point" id="point-michalovice" data-id="michalovice">
-                    <circle class="outer-ring" cx="490" cy="510" r="25"/>
-                    <circle class="inner-dot" cx="490" cy="510" r="8" fill="white"/>
+                    <circle class="outer-ring" cx="490" cy="510" r="22"/>
+                    <circle class="inner-dot" cx="490" cy="510" r="7" fill="white"/>
                     <text x="490" y="555" class="map-label">Michalovice</text>
                 </g>
 
                 <g class="map-point" id="point-loucen" data-id="loucen">
-                    <circle class="outer-ring" cx="740" cy="670" r="25"/>
-                    <circle class="inner-dot" cx="740" cy="670" r="8" fill="white"/>
+                    <circle class="outer-ring" cx="740" cy="670" r="22"/>
+                    <circle class="inner-dot" cx="740" cy="670" r="7" fill="white"/>
                     <text x="740" y="635" class="map-label">Loučeň</text>
                 </g>
             </svg>
         </div>
 
-        <!-- PRAVÝ PANEL: DETAIL / INFORMACE -->
+        <!-- PRAVÝ PANEL: DETAIL A INFORMACE -->
         <div class="right-panel">
+            <!-- Panel pro jednotlivé památky -->
             <div id="info-panel" class="white-box info-overlay" style="display:none;">
                 <h2 id="p-title">Název</h2>
-                <img id="p-img" src="" alt="Foto" style="width:100%; border-radius:15px; margin:10px 0; display:none;">
+                <img id="p-img" src="" alt="Foto památky" style="width:100%; border-radius:15px; margin:10px 0; display:none;">
                 <p id="p-desc">Popis místa.</p>
                 <button class="close-btn" onclick="hidePanels()">Zavřít</button>
             </div>
 
+            <!-- Dvojitý panel pro Mladou Boleslav -->
             <div id="double-panel" class="white-box info-overlay double-layout" style="display:none;">
                 <div class="split-card">
                     <h3>Městský palác Templ</h3>
-                    <img src="Templp.jpg" alt="Templ" style="width:100%; border-radius:10px; margin-bottom:10px;">
+                    <img src="Templp.jpg" alt="Městský palác Templ" style="width:100%; border-radius:10px; margin-bottom:10px;">
                     <p>Gotika v srdci města. Jeden z nejkrásnějších pozdně gotických šlechtických domů v Česku. Dnes zde najdete interaktivní muzeum, které vás provede historií Mladé Boleslavi od pravěku až po středověk.</p>
                 </div>
                 <div class="split-card">
