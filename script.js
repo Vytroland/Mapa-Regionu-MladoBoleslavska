@@ -1,209 +1,52 @@
-:root {
-    color-scheme: light;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #2c3e50; 
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.top-header {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column; 
-    gap: 15px;
-    padding: 20px;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* VENDOR PREFIXY PRO STÍNY A FILTRY */
-.panel {
-    background-color: #2980b9;
-    color: white;
-    padding: 15px 30px;
-    border-radius: 50px;
-    -webkit-box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    text-align: center;
-    width: fit-content;
-    max-width: 90%;
-    -webkit-filter: none !important;
-    filter: none !important;
-}
-
-.panel h1, .panel p { 
-    margin: 0; 
-    font-size: 1.2rem; 
-    font-weight: bold;
-    line-height: 1.4;
-}
-
-/* ROZVRŽENÍ HLAVNÍHO OBSAHU: LEVÝ (MAPA) A PRAVÝ (DETAIL) PANEL */
-.main-content {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 10px 20px;
-    box-sizing: border-box;
-}
-
-.left-panel {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 60%;
-    -ms-flex: 1 1 60%;
-    flex: 1 1 60%;
-}
-
-.right-panel {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 35%;
-    -ms-flex: 1 1 35%;
-    flex: 1 1 35%;
-}
-
-.white-box {
-    background-color: white;
-    border-radius: 25px;
-    padding: 20px;
-    -webkit-box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-}
-
-.map-container {
-    width: 100%;
-}
-
-/* SVG GOBJEKTY A ANIMAČNÍ EFEKTY */
-svg { 
-    width: 100%; 
-    height: auto; 
-    -webkit-filter: none !important;
-    filter: none !important;
-}
-
-.map-label {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    fill: #2c3e50;
-    text-anchor: middle;
-}
-
-.map-point { 
-    cursor: pointer; 
-}
-
-.outer-ring { 
-    fill: #27ae60 !important; 
-    -webkit-transition: fill 0.3s ease, -webkit-transform 0.2s ease;
-    -moz-transition: fill 0.3s ease, -moz-transform 0.2s ease;
-    transition: fill 0.3s ease, transform 0.2s ease;
-}
-
-.map-point:hover .outer-ring { 
-    fill: #1e8449 !important;
-    -webkit-transform: scale(1.15);
-    -moz-transform: scale(1.15);
-    -ms-transform: scale(1.15);
-    transform: scale(1.15);
-    transform-origin: center;
-}
-
-.info-overlay {
-    width: 100%;
-    border: 3px solid #2980b9;
-    box-sizing: border-box;
-}
-
-.double-layout {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.close-btn {
-    width: 100%;
-    background: #c0392b;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-top: 15px;
-    font-weight: bold;
-    -webkit-transition: background 0.2s ease;
-    -moz-transition: background 0.2s ease;
-    transition: background 0.2s ease;
-}
-
-.close-btn:hover {
-    background: #a93226;
-}
-
-/* RESPONSIVITA PRO MOBILY A TABLETY */
-@media (max-width: 1024px) {
-    .main-content {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
+const locations = {
+    "mnichovo": { 
+        title: "Mnichovo Hradiště", 
+        desc: "Barokní perla Valdštejnů. Velkolepá rezidence, která vás přenese do éry Albrechta z Valdštejna. Mezi největší lákadla patří unikátní zámecké divadlo s původní mašinerií a rozsáhlá knihovna.", 
+        img: "Minchovo.jpg" 
+    },
+    "bela": { 
+        title: "Benátky nad Jizerou", 
+        desc: "Zámek Benátky nad Jizerou. Původně tvrz, přestavěná na renesanční a později barokní zámek s unikátní sgrafitovou výzdobou. Je úzce spjat s působením dánského astronoma Tychona Braheho a skladatele Bedřicha Smetany.", 
+        img: "bela.jpg" 
+    },
+    "michalovice": { 
+        title: "Michalovická Putna", 
+        desc: "Zřícenina hradu proslulá svou šikmou věží zvanou Putna.", 
+        img: "Putna.jpg" 
+    },
+    "loucen": { 
+        title: "Zámek Loučeň", 
+        desc: "Labyrinty a bludiště. Barokní zámek obklopený rozsáhlým parkem, který ukrývá evropský unikát – 12 různých labyrintů a bludišť.", 
+        img: "Loucen.jpg" 
     }
-    .left-panel, .right-panel {
-        width: 100%;
-    }
+};
+
+function hidePanels() {
+    document.getElementById('info-panel').style.display = 'none';
+    document.getElementById('double-panel').style.display = 'none';
 }
+
+document.querySelectorAll('.map-point').forEach(point => {
+    point.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        hidePanels();
+
+        if (id === "boleslav") {
+            document.getElementById('double-panel').style.display = 'flex';
+        } else {
+            const data = locations[id];
+            if (data) {
+                document.getElementById('p-title').innerText = data.title;
+                document.getElementById('p-desc').innerText = data.desc;
+                const imgElement = document.getElementById('p-img');
+                if (data.img) {
+                    imgElement.src = data.img;
+                    imgElement.style.display = 'block';
+                } else {
+                    imgElement.style.display = 'none';
+                }
+                document.getElementById('info-panel').style.display = 'block';
+            }
+        }
+    });
+});
