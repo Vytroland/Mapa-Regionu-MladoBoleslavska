@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Průvodce Mladoboleslavskem</title>
-    <link rel="stylesheet" href="style.css?v=2.3">
+    <link rel="stylesheet" href="style.css?v=2.4">
 </head>
 <body>
 
@@ -14,18 +14,14 @@
     </header>
 
     <div class="main-content">
-        <!-- LEVÝ PANEL: INLINE VEKTOROVÁ SVG MAPA -->
+        <!-- LEVÝ PANEL: TVÁ VEKTOROVÁ MAPA ZE SOUBORU Mapa_Regionu.svg -->
         <div class="left-panel white-box map-container">
             <svg id="mapa-boleslav-svg" viewBox="0 0 1000 1100" xmlns="http://www.w3.org/2000/svg">
-                <!-- Vektorové cesty podkladu regionu a řeky Jizery -->
-                <g id="region-background">
-                    <!-- Hranice regionu -->
-                    <path id="path-region-boundary" class="map-region" d="M 150,100 L 850,80 L 920,500 L 800,1000 L 200,950 L 80,450 Z" fill="#e8ecef" stroke="#bdc3c7" stroke-width="4" stroke-dasharray="8,8"/>
-                    <!-- Tok řeky Jizery -->
-                    <path id="path-jizera-river" class="river-path" d="M 580,50 Q 540,250 510,480 T 310,800 L 280,1050" fill="none" stroke="#3498db" stroke-width="14" stroke-linecap="round"/>
-                </g>
+                
+                <!-- Podkladová mapa načtená ze souboru Mapa_Regionu.svg -->
+                <image href="Mapa_Regionu.svg" x="0" y="0" width="1000" height="1100" />
 
-                <!-- Interaktivní body s ID a datovými atributy -->
+                <!-- Interaktivní body zobrazené nad mapou -->
                 <g class="map-point" id="point-mnichovo" data-id="mnichovo">
                     <circle class="outer-ring" cx="560" cy="150" r="22"/>
                     <circle class="inner-dot" cx="560" cy="150" r="7" fill="white"/>
@@ -85,6 +81,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=2.3"></script>
+    <script src="script.js?v=2.4"></script>
 </body>
 </html>
