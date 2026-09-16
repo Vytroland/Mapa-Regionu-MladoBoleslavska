@@ -1,46 +1,267 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Průvodce Mladoboleslavskem</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Průvodce Mladoboleslavskem</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #1e2b37;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header-container {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .main-title {
+      background-color: #0070ba;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 20px;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .sub-title {
+      background-color: #0070ba;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+
+    .content-wrapper {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      display: flex;
+      gap: 20px;
+      max-width: 950px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .map-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      background-color: #e6eaed;
+      border: 1px solid #d0d7de;
+      flex-shrink: 0;
+    }
+
+    /* Křivka řeky */
+    .river {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Bod na mapě */
+    .map-point {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background-color: #28a745;
+      border: 4px solid #ffffff;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s;
+      z-index: 10;
+    }
+
+    .map-point:hover {
+      transform: translate(-50%, -50%) scale(1.25);
+    }
+
+    .map-label {
+      position: absolute;
+      font-size: 11px;
+      font-weight: bold;
+      color: #1e2b37;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      bottom: 28px;
+      pointer-events: none;
+    }
+
+    /* Karta s detailem */
+    .info-card {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      flex-grow: 1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      color: #333;
+      display: none;
+      align-self: flex-start;
+    }
+
+    .info-card.active {
+      display: block;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #111;
+    }
+
+    .card-img-placeholder {
+      background: #f4f4f4;
+      border: 1px dashed #ccc;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      color: #777;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      width: 100%;
+      background-color: #c83727;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+      background-color: #a82d1f;
+    }
+  </style>
 </head>
 <body>
-    <header class="top-header">
-        <div class="panel">
-            <h1>Průvodce Mladoboleslavskem</h1>
-        </div>
-        <div class="panel">
-            <p>Klikněte na body na mapě a objevte historii!</p>
-        </div>
-    </header>
 
-    <main class="main-content">
-        <div class="left-panel white-box">
-            <div class="map-wrapper">
-                <svg id="Vrstva_1" data-name="Vrstva 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 759.67 1045.43" class="map-img">
-                    <!-- Sem patří tvoje SVG cesty (path) -->
-                </svg>
-                
-                <!-- Interaktivní body na mapě -->
-                <div class="map-point" data-id="boleslav" style="top: 50%; left: 50%;" title="Mladá Boleslav"></div>
-                <div class="map-point" data-id="mnichovo" style="top: 25%; left: 55%;" title="Mnichovo Hradiště"></div>
-                <div class="map-point" data-id="bela" style="top: 75%; left: 45%;" title="Benátky nad Jizerou"></div>
-                <div class="map-point" data-id="michalovice" style="top: 45%; left: 40%;" title="Michalovická Putna"></div>
-                <div class="map-point" data-id="loucen" style="top: 80%; left: 65%;" title="Zámek Loučeň"></div>
-            </div>
-        </div>
+  <div class="header-container">
+    <div class="main-title">Průvodce Mladoboleslavskem</div><br>
+    <div class="sub-title">Klikněte na body na mapě a objevte historii!</div>
+  </div>
 
-        <div class="right-panel white-box">
-            <!-- Dynamický panel pro zobrazení detailu -->
-            <div id="info-panel" class="info-overlay" style="display: none;">
-                <h2 id="p-title"></h2>
-                <img id="p-img" src="" alt="Foto památky">
-                <p id="p-desc"></p>
-                <button class="close-btn" onclick="hidePanels()">Zavřít</button>
-            </div>
-        </div>
-    </main>
+  <div class="content-wrapper">
+    
+    <!-- MAPA -->
+    <div class="map-container">
+      <svg class="river" viewBox="0 0 500 500">
+        <path d="M 175,0 Q 160,150 155,270 T 215,500" fill="none" stroke="#3498db" stroke-width="8" />
+      </svg>
+
+      <!-- Značky na mapě -->
+      <div class="map-point" style="top: 14%; left: 70%;" data-id="mnichovo-hradiste">
+        <span class="map-label">Mnichovo Hradiště</span>
+      </div>
+
+      <div class="map-point" style="top: 38%; left: 41%;" data-id="benatky">
+        <span class="map-label">Benátky n. Jizerou</span>
+      </div>
+
+      <div class="map-point" style="top: 52%; left: 67%;" data-id="mlada-boleslav">
+        <span class="map-label">Mladá Boleslav</span>
+      </div>
+
+      <div class="map-point" style="top: 56%; left: 62%;" data-id="michalovice">
+        <span class="map-label">Michalovice</span>
+      </div>
+
+      <div class="map-point" style="top: 65%; left: 90%;" data-id="loucen">
+        <span class="map-label">Loučeň</span>
+      </div>
+    </div>
+
+    <!-- KARTA S DETAILY -->
+    <div class="info-card" id="info-card">
+      <div class="card-title" id="card-title">Název místa</div>
+      <div class="card-img-placeholder" id="card-img">Fotografie</div>
+      <p class="card-text" id="card-text">Detailní popis.</p>
+      <button class="close-btn" id="close-btn">Zavřít</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Kompletní databáze obsahu pro kód
+    const placesData = {
+      'mnichovo-hradiste': {
+        title: 'Mnichovo Hradiště',
+        text: 'Barokní zámecký areál spojený s vojevůdcem Albrechtem z Valdštejna.'
+      },
+      'benatky': {
+        title: 'Benátky n. Jizerou',
+        text: 'Renesanční zámek, ve kterém v minulosti působil astronom Tycho Brahe i skladatel Bedřich Smetana.'
+      },
+      'mlada-boleslav': {
+        title: 'Mladá Boleslav',
+        text: 'Historické město s hradem a kolébka automobilového průmyslu ŠKODA AUTO.'
+      },
+      'michalovice': {
+        title: 'Michalovice',
+        text: 'Zřícenina hradu s ikonickou nakloněnou věží zvanou Putna.'
+      },
+      'loucen': {
+        title: 'Zámek Loučeň',
+        text: 'Labyrinty a bludiště. Barokní zámek obklopený rozsáhlým parkem, který ukrývá evropský unikát – 12 různých labyrintů a bludišť.'
+      }
+    };
+
+    const points = document.querySelectorAll('.map-point');
+    const infoCard = document.getElementById('info-card');
+    const cardTitle = document.getElementById('card-title');
+    const cardText = document.getElementById('card-text');
+    const closeBtn = document.getElementById('close-btn');
+
+    // Reakce na kliknutí na bod
+    points.forEach(point => {
+      point.addEventListener('click', () => {
+        const placeId = point.getAttribute('data-id');
+        const data = placesData[placeId];
+
+        if (data) {
+          cardTitle.textContent = data.title;
+          cardText.textContent = data.text;
+          infoCard.classList.add('active');
+        }
+      });
+    });
+
+    // Zavření karty
+    closeBtn.addEventListener('click', () => {
+      infoCard.classList.remove('active');
+    });
+  </script>
+
 </body>
 </html>
