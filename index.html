@@ -18,13 +18,19 @@
 
     <main class="main-content">
         <div class="left-panel white-box">
-            <div class="map-container" id="map-container">
-                <!-- SVG mapa se sem automaticky načte ze souboru Mapa_Regionu.svg -->
+            <div class="map-wrapper">
+                <img src="Mapa_Regionu.svg" alt="Mapa Regionu" class="map-img">
+                
+                <!-- Interaktivní body na mapě (procento pozice top/left uprav dle potřeby) -->
+                <div class="map-point" data-id="boleslav" style="top: 50%; left: 50%;" title="Mladá Boleslav"></div>
+                <div class="map-point" data-id="mnichovo" style="top: 25%; left: 55%;" title="Mnichovo Hradiště"></div>
+                <div class="map-point" data-id="bela" style="top: 75%; left: 45%;" title="Benátky nad Jizerou"></div>
+                <div class="map-point" data-id="michalovice" style="top: 45%; left: 40%;" title="Michalovická Putna"></div>
+                <div class="map-point" data-id="loucen" style="top: 80%; left: 65%;" title="Zámek Loučeň"></div>
             </div>
         </div>
 
         <div class="right-panel white-box">
-            <!-- Panel pro jednotlivé památky -->
             <div id="info-panel" class="info-overlay" style="display: none;">
                 <h2 id="p-title"></h2>
                 <img id="p-img" src="" alt="Foto památky">
@@ -32,7 +38,6 @@
                 <button class="close-btn" onclick="hidePanels()">Zavřít</button>
             </div>
 
-            <!-- Dvojitý panel pro Mladou Boleslav -->
             <div id="double-panel" class="double-layout" style="display: none;">
                 <div class="info-overlay">
                     <h2>Městský palác Templ</h2>
