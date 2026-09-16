@@ -39,12 +39,14 @@ document.querySelectorAll('.map-point').forEach(point => {
                 document.getElementById('p-title').innerText = data.title;
                 document.getElementById('p-desc').innerText = data.desc;
                 const imgElement = document.getElementById('p-img');
+                
                 if (data.img) {
                     imgElement.src = data.img;
                     imgElement.style.display = 'block';
                 } else {
                     imgElement.style.display = 'none';
                 }
+                
                 document.getElementById('info-panel').style.display = 'block';
             }
         }
