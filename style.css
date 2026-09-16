@@ -120,7 +120,7 @@ body {
     width: 100%;
 }
 
-/* SVG GOBJEKTY A ANIMAČNÍ EFEKTY */
+/* SVG OBJEKTY A ANIMAČNÍ EFEKTY */
 svg { 
     width: 100%; 
     height: auto; 
@@ -140,20 +140,16 @@ svg {
     cursor: pointer; 
 }
 
+/* OPRAVENÁ ANIMACE - bod se už nezvětšuje, jen změní barvu */
 .outer-ring { 
     fill: #27ae60 !important; 
-    -webkit-transition: fill 0.3s ease, -webkit-transform 0.2s ease;
-    -moz-transition: fill 0.3s ease, -moz-transform 0.2s ease;
-    transition: fill 0.3s ease, transform 0.2s ease;
+    -webkit-transition: fill 0.3s ease;
+    -moz-transition: fill 0.3s ease;
+    transition: fill 0.3s ease;
 }
 
 .map-point:hover .outer-ring { 
     fill: #1e8449 !important;
-    -webkit-transform: scale(1.15);
-    -moz-transform: scale(1.15);
-    -ms-transform: scale(1.15);
-    transform: scale(1.15);
-    transform-origin: center;
 }
 
 .info-overlay {
