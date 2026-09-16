@@ -26,29 +26,55 @@ function hidePanels() {
     document.getElementById('double-panel').style.display = 'none';
 }
 
-document.querySelectorAll('.map-point').forEach(point => {
-    point.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
-        hidePanels();
+function initMapEvents() {
+    document.querySelectorAll('.map-point').forEach(point => {
+        point.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            hidePanels();
 
-        if (id === "boleslav") {
-            document.getElementById('double-panel').style.display = 'flex';
-        } else {
-            const data = locations[id];
-            if (data) {
-                document.getElementById('p-title').innerText = data.title;
-                document.getElementById('p-desc').innerText = data.desc;
-                const imgElement = document.getElementById('p-img');
-                
-                if (data.img) {
-                    imgElement.src = data.img;
-                    imgElement.style.display = 'block';
-                } else {
-                    imgElement.style.display = 'none';
+            if (id === "boleslav") {
+                document.getElementById('double-panel').style.display = 'flex';
+            } else {
+                const data = locations[id];
+                if (data) {
+                    document.getElementById('p-title').innerText = data.title;
+                    document.getElementById('p-desc').innerText = data.desc;
+                    const imgElement = document.getElementById('p-img');
+                    
+                    if (data.img) {
+                        imgElement.src = data.img;
+                        imgElement.style.display = 'block';
+                    } else {
+                        imgElement.style.display = 'none';
+                    }
+                    
+                    document.getElementById('info-panel').style.display = 'block';
                 }
-                
-                document.getElementById('info-panel').style.display = 'block';
             }
-        }
+        });
     });
+}
+
+// Načtení SVG mapy přímo do stránky po její otevření
+window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('map-container');
+    if (container) {
+        fetch('Mapa_Regionu.svg')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Chyba při načítání SVG');
+                }
+                return response.text();
+            })
+            .then(svgText => {
+                container.innerHTML = svgText;
+                initMapEvents();
+            })
+            .catch(err => {
+                console.error('Nepodařilo se načíst SVG mapu:', err);
+                initMapEvents();
+            });
+    } else {
+        initMapEvents();
+    }
 });
