@@ -26,7 +26,7 @@ function hidePanels() {
     document.getElementById('double-panel').style.display = 'none';
 }
 
-function initMapEvents() {
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.map-point').forEach(point => {
         point.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
@@ -53,28 +53,4 @@ function initMapEvents() {
             }
         });
     });
-}
-
-// Načtení SVG mapy přímo do stránky po její otevření
-window.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('map-container');
-    if (container) {
-        fetch('Mapa_Regionu.svg')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Chyba při načítání SVG');
-                }
-                return response.text();
-            })
-            .then(svgText => {
-                container.innerHTML = svgText;
-                initMapEvents();
-            })
-            .catch(err => {
-                console.error('Nepodařilo se načíst SVG mapu:', err);
-                initMapEvents();
-            });
-    } else {
-        initMapEvents();
-    }
 });
