@@ -5,72 +5,293 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Průvodce Mladoboleslavskem</title>
     <style>
-        body { font-family: sans-serif; margin: 0; background-color: #f4f4f9; }
-        .main-content { display: flex; gap: 20px; padding: 20px; }
-        .white-box { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .left-panel { flex: 2; }
-        .right-panel { flex: 1; min-height: 200px; }
-        
-        /* Obal mapy - důležitý pro relativní pozicování bodů */
-        .map-wrapper { position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
-        .map-img { width: 100%; height: auto; display: block; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* Vzhled interaktivních bodů na mapě */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .top-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .top-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .top-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .white-box {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+        }
+
+        .left-panel {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fdfdfd;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 760px;
+        }
+
+        .map-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.08));
+        }
+
+        /* Styly pro SVG mapu */
+        .region-bg {
+            fill: #e2e8f0;
+            stroke: #94a3b8;
+            stroke-width: 3;
+            stroke-linejoin: round;
+        }
+
+        .river-line {
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .road-line {
+            fill: none;
+            stroke: #f59e0b;
+            stroke-width: 3;
+            stroke-dasharray: 6 4;
+        }
+
+        /* Interaktivní červené body */
         .map-point {
             position: absolute;
-            width: 16px;
-            height: 16px;
-            background-color: #e63946;
-            border: 2px solid #ffffff;
+            width: 20px;
+            height: 20px;
+            background-color: #ef4444;
+            border: 3px solid #ffffff;
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+            z-index: 10;
+        }
+
+        .map-point::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid #ef4444;
+            animation: pulse 1.8s infinite;
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
         }
 
         .map-point:hover {
-            transform: translate(-50%, -50%) scale(1.3);
-            background-color: #ffb703;
+            transform: translate(-50%, -50%) scale(1.4);
+            background-color: #f59e0b;
+            z-index: 20;
+        }
+
+        /* Pravý informační panel */
+        .info-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-card h2 {
+            color: #1e293b;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .info-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-card p {
+            color: #475569;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .close-btn {
+            align-self: flex-start;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .close-btn:hover {
+            background-color: #2563eb;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 
+    <header class="top-header">
+        <div>
+            <h1>Průvodce Mladoboleslavskem</h1>
+        </div>
+        <div>
+            <p>Klikněte na body na mapě a objevte historii!</p>
+        </div>
+    </header>
+
     <main class="main-content">
         <div class="left-panel white-box">
             <div class="map-wrapper">
-                <!-- Vykreslená SVG mapa (obrys okresu + řeka) -->
-                <svg viewBox="0 0 500 500" class="map-img">
-                    <!-- Polygon reprezentující obrys regionu -->
-                    <path d="M 180,30 L 340,50 L 450,180 L 410,380 L 260,460 L 90,400 L 60,200 Z" 
-                          fill="#e9ecef" stroke="#adb5bd" stroke-width="4"/>
+                <!-- SVG VEKTOROVÁ MAPA -->
+                <svg id="Vrstva_1" data-name="Vrstva 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 759.67 1045.43" class="map-img">
+                    <!-- Vektorový obrys regionu Mladá Boleslav -->
+                    <path class="region-bg" d="M220,80 L480,120 L680,280 L720,550 L610,880 L380,980 L120,850 L50,500 L110,250 Z" />
                     
-                    <!-- Křivka reprezentující řeku Jizeru -->
-                    <path d="M 280,50 Q 220,150 250,250 T 210,430" 
-                          fill="none" stroke="#4ea8de" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Řeka Jizera (vektorová křivka) -->
+                    <path class="river-line" d="M420,100 C380,250 450,380 370,520 C300,640 330,780 290,950" />
+                    
+                    <!-- Hlavní silniční propojení -->
+                    <path class="road-line" d="M120,850 L370,520 L680,280" />
+                    <path class="road-line" d="M220,80 L370,520 L380,980" />
                 </svg>
+
+                <!-- INTERAKTIVNÍ BODY NA MAPĚ (Umístěné pomocí procent top a left) -->
                 
-                <!-- Body umístěné na konkrétní souřadnice % -->
-                <div class="map-point" style="top: 18%; left: 62%;" title="Mnichovo Hradiště" onclick="showInfo('Mnichovo Hradiště', 'Zámek spojený s rodem Valdštejnů.')"></div>
-                <div class="map-point" style="top: 50%; left: 50%;" title="Mladá Boleslav" onclick="showInfo('Mladá Boleslav', 'Statutární město známé výrobou automobilů Škoda.')"></div>
-                <div class="map-point" style="top: 42%; left: 42%;" title="Michalovice" onclick="showInfo('Michalovická Putna', 'Zřícenina hradu se šikmou věží.')"></div>
-                <div class="map-point" style="top: 80%; left: 42%;" title="Benátky nad Jizerou" onclick="showInfo('Benátky nad Jizerou', 'Historický zámek, kde působil Tycho Brahe.')"></div>
+                <div class="map-point" style="top: 50%; left: 49%;" 
+                     data-title="Mladá Boleslav" 
+                     data-img="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80"
+                     data-desc="Statutární město známé především výrobou automobilů Škoda. Dominantou je historický hrad, stará radnice a muzeum automobilky."></div>
+
+                <div class="map-point" style="top: 22%; left: 58%;" 
+                     data-title="Mnichovo Hradiště" 
+                     data-img="https://images.unsplash.com/photo-1599946347371-68eb71b16afc?auto=format&fit=crop&w=600&q=80"
+                     data-desc="Barokní zámecký areál spojený s rodem Valdštejnů. Nalézá se zde také hrobka slavného vojevůdce Albrechta z Valdštejna."></div>
+
+                <div class="map-point" style="top: 45%; left: 42%;" 
+                     data-title="Michalovická Putna" 
+                     data-img="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80"
+                     data-desc="Zřícenina hradu Michalovice s typickou nakloněnou věží (Putnou), ze které je krásný výhled do údolí řeky Jizery."></div>
+
+                <div class="map-point" style="top: 82%; left: 39%;" 
+                     data-title="Benátky nad Jizerou" 
+                     data-img="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
+                     data-desc="Renesanční zámek na ostrohu nad řekou, kde v minulosti pobýval a pracoval významný dánský astronom Tycho Brahe."></div>
+
+                <div class="map-point" style="top: 72%; left: 75%;" 
+                     data-title="Zámek Loučeň" 
+                     data-img="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80"
+                     data-desc="Romantický barokní zámek proslulý svými unikátními labyrinty a bludišti umístěnými v zámeckém parku."></div>
+
             </div>
         </div>
 
+        <!-- PRAVÝ INFORMAČNÍ PANEL -->
         <div class="right-panel white-box">
-            <div id="info-panel">
-                <h2 id="p-title">Klikněte na bod na mapě</h2>
-                <p id="p-desc">Zde se zobrazí podrobnosti o vybrané památce.</p>
+            <div class="info-card">
+                <h2 id="p-title">Vyberte památku</h2>
+                <img id="p-img" src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80" alt="Mapa regionu">
+                <p id="p-desc">Klikněte na kterýkoliv červený bod na mapě vlevo. Zobrazí se vám podrobné informace a fotografie dané památky.</p>
+                <button class="close-btn" onclick="resetInfo()">Vynulovat výběr</button>
             </div>
         </div>
     </main>
-
+    <!-- JAVASCRIPT PRO INTERAKTIVITU -->
     <script>
-        function showInfo(title, desc) {
-            document.getElementById('p-title').innerText = title;
-            document.getElementById('p-desc').innerText = desc;
+        // Výchozí texty a obrázek
+        const defaultTitle = "Vyberte památku";
+        const defaultImg = "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80";
+        const defaultDesc = "Klikněte na kterýkoliv červený bod na mapě vlevo. Zobrazí se vám podrobné informace a fotografie dané památky.";
+
+        // Navázání akce kliknutí na všechny body na mapě
+        document.querySelectorAll('.map-point').forEach(point => {
+            point.addEventListener('click', () => {
+                const title = point.getAttribute('data-title');
+                const img = point.getAttribute('data-img');
+                const desc = point.getAttribute('data-desc');
+
+                document.getElementById('p-title').innerText = title;
+                document.getElementById('p-img').src = img;
+                document.getElementById('p-desc').innerText = desc;
+            });
+        });
+
+        // Funkce pro tlačítko Vynulovat výběr
+        function resetInfo() {
+            document.getElementById('p-title').innerText = defaultTitle;
+            document.getElementById('p-img').src = defaultImg;
+            document.getElementById('p-desc').innerText = defaultDesc;
         }
     </script>
 </body>
