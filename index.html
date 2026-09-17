@@ -200,6 +200,129 @@
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Průvodce Mladoboleslavskem</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .top-header h1 {
+            margin-bottom: 5px;
+        }
+        .main-content {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .left-panel {
+            flex: 2;
+            min-width: 320px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .right-panel {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .white-box {
+            background: #fff;
+        }
+        .map-wrapper {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .cls-1 {
+            fill: none;
+        }
+        .cls-1, .cls-2 {
+            stroke: #000;
+            stroke-miterlimit: 10;
+        }
+        .cls-2 {
+            fill: #7ac943;
+        }
+        
+        /* Interaktivní značky (piny) */
+        .pin {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .pin:hover {
+            transform: scale(1.3);
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+        .pin circle {
+            fill: #e74c3c;
+            stroke: #ffffff;
+            stroke-width: 2;
+        }
+        .pin:hover circle {
+            fill: #c0392b;
+        }
+        .pin text {
+            font-size: 13px;
+            font-weight: bold;
+            fill: #1a252f;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+        
+        /* Detailní karta informací */
+        .info-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .info-card p {
+            line-height: 1.6;
+            color: #555;
+        }
+        .placeholder-text {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
 <body>
 
     <header class="top-header">
@@ -336,74 +459,61 @@
   <path class="cls-1" d="M240.52,380.33s2.35,5.22,15.26,4.7c0,0,1.04,12.5-7.63,20.07,0,0,3.07,18.53-8.02,26.36,0,0,19.3,5.77,19.76,11.76,0,0,14.49.22,11.41,11.76v10.92"/>
   <path class="cls-1" d="M240.13,431.46s-7.96,7.75-5.87,13.27c0,0-8.26-5.44-16.39,7.6"/>
   <path class="cls-1" d="M365.65,418.41v15.65s5.29-18.26,14.17-24"/>
-                </svg>
 
-                <!-- INTERAKTIVNÍ BODY NA MAPĚ (Umístěné pomocí procent top a left) -->
-                
-                <div class="map-point" style="top: 50%; left: 49%;" 
-                     data-title="Mladá Boleslav" 
-                     data-img="Auto.png"
-                     data-desc="Statutární město známé především výrobou automobilů Škoda. Dominantou je historický hrad, stará radnice a muzeum automobilky."></div>
-
-                <div class="map-point" style="top: 22%; left: 58%;" 
-                     data-title="Mnichovo Hradiště" 
-                     data-img="https://images.unsplash.com/photo-1599946347371-68eb71b16afc?auto=format&fit=crop&w=600&q=80"
-                     data-desc="Barokní zámecký areál spojený s rodem Valdštejnů. Nalézá se zde také hrobka slavného vojevůdce Albrechta z Valdštejna."></div>
-
-                <div class="map-point" style="top: 45%; left: 42%;" 
-                     data-title="Michalovická Putna" 
-                     data-img="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80"
-                     data-desc="Zřícenina hradu Michalovice s typickou nakloněnou věží (Putnou), ze které je krásný výhled do údolí řeky Jizery."></div>
-
-                <div class="map-point" style="top: 82%; left: 39%;" 
-                     data-title="Benátky nad Jizerou" 
-                     data-img="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
-                     data-desc="Renesanční zámek na ostrohu nad řekou, kde v minulosti pobýval a pracoval významný dánský astronom Tycho Brahe."></div>
-
-                <div class="map-point" style="top: 72%; left: 75%;" 
-                     data-title="Zámek Loučeň" 
-                     data-img="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80"
-                     data-desc="Romantický barokní zámek proslulý svými unikátními labyrinty a bludišti umístěnými v zámeckém parku."></div>
-
+  <!-- INTERAKTIVNÍ BODY (PINY) -->
+  <g id="map-pins">
+    <g class="pin" data-title="Mladá Boleslav" data-text="Okresní město založené v 10. století knížetem Boleslavem II. Je celosvětově známé díky automobilce Škoda Auto, nachází se zde hrad, Staroměstské náměstí a letecké muzeum.">
+      <circle cx="380" cy="550" r="12" />
+      <text x="380" y="530">Mladá Boleslav</text>
+    </g>
+    <g class="pin" data-title="Mnichovo Hradiště" data-text="Město s barokním zámkem z 17. století, který je spjat s vojevůdcem Albrechtem z Valdštejna. V kapli sv. Anny se nachází jeho hrobka.">
+      <circle cx="420" cy="250" r="12" />
+      <text x="420" y="230">Mnichovo Hradiště</text>
+    </g>
+    <g class="pin" data-title="Benátky nad Jizerou" data-text="Historické město s renesančním zámkem. V minulosti zde pobýval slavný dánský astronom Tycho Brahe i hudební skladatel Bedřich Smetana.">
+      <circle cx="280" cy="850" r="12" />
+      <text x="280" y="830">Benátky n. J.</text>
+    </g>
+    <g class="pin" data-title="Bělá pod Bezdězem" data-text="Město ležící na okraji Máchova kraje. Pyšní se dochovanou renesanční Českou branou a zámeckým areálem.">
+      <circle cx="220" cy="300" r="12" />
+      <text x="220" y="280">Bělá p. Bezdězem</text>
+    </g>
+    <g class="pin" data-title="Zvířetice" data-text="Původně gotický hrad přebudovaný na renesanční zámek, který na počátku 18. století vyhořel. Dnes slouží dochovaná věž jako rozhledna.">
+      <circle cx="330" cy="450" r="12" />
+      <text x="330" y="430">Zvířetice</text>
+    </g>
+    <g class="pin" data-title="Michalovice" data-text="Zřícenina hradu nad řekou Jizerou, známá především svou šikmou věží zvanou Putna, která se rozštěpila v 19. století při hledání pokladu.">
+      <circle cx="360" cy="500" r="12" />
+      <text x="360" y="480">Michalovice</text>
+    </g>
+  </g>
+</svg>
             </div>
         </div>
 
-        <!-- PRAVÝ INFORMAČNÍ PANEL -->
         <div class="right-panel white-box">
-            <div class="info-card">
-                <h2 id="p-title">Vyberte památku</h2>
-                <img id="p-img" src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80" alt="Mapa regionu">
-                <p id="p-desc">Klikněte na kterýkoliv červený bod na mapě vlevo. Zobrazí se vám podrobné informace a fotografie dané památky.</p>
-                <button class="close-btn" onclick="resetInfo()">Vynulovat výběr</button>
+            <h2>Detail Místa</h2>
+            <div id="info-card" class="info-card">
+                <h3 id="info-title">Vyberte místo na mapě</h3>
+                <p id="info-text" class="placeholder-text">Klikněte na jakýkoliv červený bod na mapě pro zobrazení podrobností a historie dané lokality.</p>
             </div>
         </div>
     </main>
-    <!-- JAVASCRIPT PRO INTERAKTIVITU -->
+
     <script>
-        // Výchozí texty a obrázek
-        const defaultTitle = "Vyberte památku";
-        const defaultImg = "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80";
-        const defaultDesc = "Klikněte na kterýkoliv červený bod na mapě vlevo. Zobrazí se vám podrobné informace a fotografie dané památky.";
+        document.querySelectorAll('.pin').forEach(pin => {
+            pin.addEventListener('click', () => {
+                const title = pin.getAttribute('data-title');
+                const text = pin.getAttribute('data-text');
 
-        // Navázání akce kliknutí na všechny body na mapě
-        document.querySelectorAll('.map-point').forEach(point => {
-            point.addEventListener('click', () => {
-                const title = point.getAttribute('data-title');
-                const img = point.getAttribute('data-img');
-                const desc = point.getAttribute('data-desc');
+                const titleEl = document.getElementById('info-title');
+                const textEl = document.getElementById('info-text');
 
-                document.getElementById('p-title').innerText = title;
-                document.getElementById('p-img').src = img;
-                document.getElementById('p-desc').innerText = desc;
+                titleEl.innerText = title;
+                textEl.innerText = text;
+                textEl.classList.remove('placeholder-text');
             });
         });
-
-        // Funkce pro tlačítko Vynulovat výběr
-        function resetInfo() {
-            document.getElementById('p-title').innerText = defaultTitle;
-            document.getElementById('p-img').src = defaultImg;
-            document.getElementById('p-desc').innerText = defaultDesc;
-        }
     </script>
 </body>
 </html>
